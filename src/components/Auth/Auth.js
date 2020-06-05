@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 class Auth extends Component {
     constructor () {
@@ -9,7 +10,26 @@ class Auth extends Component {
         }
     }
 
+    handleChange (e) {
+        this.setState ({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    register = e => {
+        e.preventDefault()
+        const {username, password} = this.state
+        axios.post ('/auth/register', {username, password})
+        .then (res => {
+            this.props.history.push ('/dashboard')
+        })
+        .catch (error => {
+            alert ('Unable to register. Username or password invalid.')
+        })
+    }
+
     render () {
+        const {username, password} = this.state
         return (
             <div className = 'auth-box-container'>
             <div className='auth-box'>
@@ -18,11 +38,17 @@ class Auth extends Component {
                 <h1>Helo</h1>
                 <div className='input-container'>
                     <p>Username:</p>
-                    <input className='input-box'/>
+                    <input className='input-box' name="username" value={username} onChange = {e => this.handleChange (e)}/>
                 </div>
                 <div className='input-container'>
                     <p>Password:</p>
-                    <input className='input-box'/>
+                    <input className='input-box' name="password" value={password} onChange = {e => this.handleChange (e)}/>
+                </div>
+                <div className='button-container'>
+                    <>
+                    <button className='button1'>Login</button>
+                    <button className='button1' onClick = {e => this.register(e)}>Register</button>
+                    </>
                 </div>
                 </>
             </div>

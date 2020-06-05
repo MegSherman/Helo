@@ -2,9 +2,22 @@ require ('dotenv').config ();
 const express = require ('express'),
     app = express (),
     massive = require ('massive'),
-    {SERVER_PORT, CONNECTION_STRING} = process.env;
+    session = require ('express-session'),
+    {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env;
+const ctrl = require ('./controller')
 
 app.use (express.json())
+app.use (
+    session ({
+        resave: false,
+        saveUninitialized: true,
+        cookie: {maxAge: 1000 * 60 * 60 * 24 * 7},
+        secret: SESSION_SECRET
+    })
+)
+
+// Endpoints
+app.post ('/auth/register', ctrl.register)
 
 massive ({
     connectionString: CONNECTION_STRING,

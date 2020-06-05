@@ -15,8 +15,8 @@
   flex-direction: column;
   height: 55vh;
   width: 33vw;
-  padding: 3vh 3vw;
-  justify-content: center;
+  padding: 5vh 5vw;
+  justify-content: space-around;
   align-items: center;
   background-color: #FF70A6;
   color: white;
@@ -35,4 +35,12 @@
 
 h1 {
   font-size: 10vh;
+}
+
+.button1 {
+  background-color: #403D39;
+  color: white;
+  height: 5vh;
+  padding: 10px;
+  margin: 10px;
 }
