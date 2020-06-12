@@ -4,7 +4,8 @@ const express = require ('express'),
     massive = require ('massive'),
     session = require ('express-session'),
     {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env;
-const ctrl = require ('./controller')
+const authCtrl = require ('./authController')
+const postCtrl = require ('./postController')
 
 app.use (express.json())
 app.use (
@@ -16,8 +17,12 @@ app.use (
     })
 )
 
-// Endpoints
-app.post ('/auth/register', ctrl.register)
+// Auth Endpoints
+app.post ('/auth/register', authCtrl.register)
+app.post('/auth/login', authCtrl.login)
+
+// Post Endpoints
+app.get ('/api/posts', postCtrl.getPosts)
 
 massive ({
     connectionString: CONNECTION_STRING,

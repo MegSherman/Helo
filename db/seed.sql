@@ -11,7 +11,7 @@ alter password
 set data type text;
 
 create table posts (
-id serial primary key,
+id serial primary key,id
 title varchar(45),
 img text,
 content text,
